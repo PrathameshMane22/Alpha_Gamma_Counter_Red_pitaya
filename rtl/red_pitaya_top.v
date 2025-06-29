@@ -561,7 +561,7 @@ assign daisy_n_o = 1'bz;
 
 wire  [ 14-1: 0] lfs_a       ;
 wire  [ 14-1: 0] lfs_b       ;
-lfs i_lfs
+agc_counter agc_c
 (
   .clk_i           (  adc_clk                    ),  // clock
   .rstn_i          (  adc_rstn                   ),  // reset - active low
