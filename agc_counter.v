@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-module lfs
+module agc_counter
 (
 	// signals
 	input                 clk_i           ,  //!< clock
