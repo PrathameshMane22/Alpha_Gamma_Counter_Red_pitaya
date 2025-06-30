@@ -17,7 +17,7 @@
 import pandas as pd
 
 # Load the CSV file
-df = pd.read_csv("C:/Users/catar/Prathamesh/June_Work/17-06-2025/data_csv.csv")
+df = pd.read_csv("C:/Users/<location to the csv file>")
 
 # Function to compute time difference ignoring zeroes
 def compute_time_diff(series):
