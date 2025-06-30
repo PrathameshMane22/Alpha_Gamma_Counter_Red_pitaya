@@ -1,22 +1,24 @@
-/*
-    Alpha Gamma Counter
-    Copyright (C) 2025 Prathamesh Mane
+
+    # Alpha Gamma Counter
+    # Copyright (C) 2025 Prathamesh Mane
     
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    # This program is free software: you can redistribute it and/or modify it
+    # It is under the terms of the GNU General Public License as published by
+    # the Free Software Foundation, either version 3 of the License, or
+    # (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    # This program is distributed in the hope that it will be useful,
+    # but WITHOUT ANY WARRANTY; without even the implied warranty of
+    # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    # GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+    # You should have received a copy of the GNU General Public License
+    # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#!/usr/bin/env python3
+
+#!/usr/bin/env python3 
+
+
 """
 Python TCP Client to receive streaming CSV data from Red Pitaya
 Usage: python3 tcp_client.py <red_pitaya_ip> [port] [output_file]
