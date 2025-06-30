@@ -3,10 +3,10 @@
 # Alpha Gamma Counter on Red Pitaya
 This repository contains the source code, HDL logic, and documentation for implementing an **Alpha-Gamma Coincidence Counter** on the **Red Pitaya** platform. The project is based on an enhanced version of Mario Vretenar’s Alpha-Gamma Counter, with additional features and improvements to the signal processing pipeline.
 
-# 📌 Overview
+## 📌 Overview
 The Alpha-Gamma Counter is designed to measure and correlate events detected by alpha and gamma detectors. It performs real-time coincidence detection, timestamping, amplitude measurement, and basic filtering. This implementation is tailored for the **Zynq 7010** FPGA on the Red Pitaya board, providing a compact and efficient data acquisition solution for nuclear physics experiments.
 
-# ⚙️ Features
+## ⚙️ Features
 - Coincidence detection between alpha and gamma signals  
 - Timestamping with nanosecond precision  
 - Amplitude measurement with configurable thresholds  
@@ -16,7 +16,7 @@ The Alpha-Gamma Counter is designed to measure and correlate events detected by 
      - Trapezoidal Filtering
      - Time Over Threshold (ToT) calculatiom
 
-# 🧰 Project Structure
+## 🧰 Project Structure
 ```markdown
 Alpha_Gamma_Counter_Red_pitaya
 ├── server/                 # C++ source files for Red Pitaya user-space applications
