@@ -23,6 +23,7 @@ Alpha_Gamma_Counter_Red_pitaya
 ├── client/                 # Python code for sending the data from RP to th PC
 ├── rtl/                    # Verilog/Vivado project files (PL logic)
 ├── xdc/                    # Master XDC file for Red pitaya
+├── results/                # CSV file, Excel file and energy spectrum for reference
 └── README.md               # Project documentation
 
 ````
@@ -84,6 +85,14 @@ Example:
 Alpha Detected: Time = 0.00001 s | Amplitude = 0.230 V
 Gamma Detected: Time = 0.00002 s | Amplitude = 0.810 V
 ```
+
+---
+
+## 📊 Result section
+
+* CSV file
+* Converted excel file
+* Energy spectrum generated from dat file using GNUplot
 
 ---
 
