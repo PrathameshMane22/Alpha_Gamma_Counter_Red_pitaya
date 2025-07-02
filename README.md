@@ -1,7 +1,8 @@
 
 
 # Alpha Gamma Counter on Red Pitaya
-This repository contains the source code, HDL logic, and documentation for implementing an **Alpha-Gamma Coincidence Counter** on the **Red Pitaya** platform. The project is based on an enhanced version of Mario Vretenar’s Alpha-Gamma Counter, with additional features and improvements to the signal processing pipeline.
+This repository contains the source code, HDL logic, and documentation for implementing an **Alpha-Gamma Coincidence Counter** on the **Red Pitaya** platform. The project is based on an enhanced version of Mario Vretenar’s Alpha-Gamma Counter, with additional features and improvements to the signal processing pipeline. This system aims to deliver a low-cost, portable, and open-source alternative to expensive DAQ systems like Pixie-16.
+
 
 ## 📌 Overview
 The Alpha-Gamma Counter is designed to measure and correlate events detected by alpha and gamma detectors. It performs real-time coincidence detection, timestamping, amplitude measurement, and basic filtering. This implementation is tailored for the **Zynq 7010** FPGA on the Red Pitaya board, providing a compact and efficient data acquisition solution for nuclear physics experiments.
@@ -40,37 +41,112 @@ Alpha_Gamma_Counter_Red_pitaya
 
 ---
 
-## 🚀 Getting Started
 
-1. **Clone the repository**  
-   ```bash
-   git clone https://github.com/PrathameshMane22/Alpha_Gamma_Counter_Red_pitaya.git
-   cd Alpha_Gamma_Counter_Red_pitaya
+## 🛠️ Setup Instructions
 
+### 🔌 Hardware Setup
 
-2. **Build and deploy bitstream**
+1. **Power**: 5V via micro-USB (≥2A recommended)
+2. **Ethernet**: Direct to PC or via router (DHCP-enabled)
+3. **Inputs**: Connect detectors via BNC-to-SMA adapters to IN1/IN2
 
-   * Open Vivado project under `hdl/`
-   * Generate bitstream and export hardware
-   * Deploy the `.bit` file to your Red Pitaya
+### 💻 Software Setup
 
-3. **Compile user-space code**
-
-   ```bash
-   cd /Alpha_Gamma_Counter_Red_pitaya/server
-   cmake .
-   make
-   ./agc_server    # Run the Alpha-Gamma counter server program
-   ```
-
-4. **Receive and log data**
-
-   * Data is printed to terminal or sent over UDP
-   * Use Python scripts (client_unified and csv_file) to log and analyze data
-   * python client_unified.py "ip address of RP" "port" "name of csv file that you want to give"
+- Download Red Pitaya OS: [Red Pitaya OS Images](https://redpitaya.readthedocs.io/en/latest/quickStart/SDcard/SDcard.html#os-versions)
+- Flash with Balena Etcher or Rufus
+- Access via SSH:  
+  ```bash
+  ssh root@169.254.250.211
+  # Password: root
+  ```
 
 ---
 
+## 🔧 FPGA Build & Deployment
+
+### Step 1: HDL Setup in Vivado
+
+```tcl
+cd path/to/v0.94/ip
+source systemZ10.tcl   # Setup base project
+```
+
+- Copy Verilog files from `rtl/` to the Vivado project directory
+- Modify `agc_counter.v` as needed
+- Generate `.bit` file
+
+### Step 2: Boot Files
+
+```bash
+echo all:{ system_wrapper.bit } > system_wrapper.bif
+bootgen -image system_wrapper.bif -arch zynq -process_bitstream bin -o system_wrapper.bit.bin -w
+```
+
+- Export hardware to get `.xsa`
+- Use `.xsa` in **Vitis** to create FSBL ELF file
+- Copy files to SD card under `FPGA/z10_125/v0.94/`:
+  - `fpga.bit`
+  - `fpga.bif`
+  - `fpga.bit.bin`
+  - `fsbl.elf`
+
+---
+
+## 🧪 Running the System
+
+### 🔁 Server-Side (on Red Pitaya)
+
+```bash
+scp -r server/ root@169.254.250.211:/root
+ssh root@169.254.250.211
+cd /root/server
+cmake .
+make
+./agc_server
+```
+
+### 📥 Client-Side (on PC)
+
+```bash
+python client_unified.py 169.254.250.211 1234 mydata.csv
+```
+
+- Logs data to CSV in real-time
+- Data format:  
+  ```
+  Alpha Detected: Time = 0.00001 s | Amplitude = 0.230 V
+  Gamma Detected: Time = 0.00002 s | Amplitude = 0.810 V
+  ```
+
+---
+
+## 📈 Results & Visualization
+
+### 1. 📂 `.dat` Files (binary format)
+
+Transfer files:
+```bash
+scp root@169.254.250.211:/root/server/measurements/* /path/to/local/
+```
+
+Plot using GNUplot:
+```gnuplot
+plot "alpha.dat" binary format='%uint32' using ($0):1 with lines
+plot "gamma.dat" binary format='%uint32' using ($0):1 with lines
+```
+
+### 2. 📊 `.csv` Files
+
+Process with script:
+```bash
+python csv_file.py   # Make sure file path is updated in script
+```
+
+Generates:
+- Cleaned CSV
+- Optional Excel-compatible version
+
+---
 ## 📊 Sample Output
 
 Each event is logged with:
@@ -88,7 +164,7 @@ Gamma Detected: Time = 0.00002 s | Amplitude = 0.810 V
 
 ---
 
-## 📊 Result section
+## 📊 Result section in repository
 
 * CSV file
 * Converted excel file
